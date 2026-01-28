@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>معرف الوظائف - مقاطعة العاذرية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#070B12;
+  --card:rgba(15,23,42,.86);
+  --border:rgba(255,255,255,.10);
+
+  /* ذهبي قريب للّوقو (تقدر تغيّره لاحقًا) */
+  --accent:#D6B15A;
+  --accent2:#B88A2B;
+
+  --text:#F8FAFC;
+  --muted:rgba(248,250,252,.72);
+  --shadow:0 14px 44px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Cairo',sans-serif;
+  background:
+    radial-gradient(900px 500px at 20% 10%, rgba(214,177,90,.14), transparent 60%),
+    radial-gradient(900px 500px at 85% 20%, rgba(184,138,43,.10), transparent 55%),
+    linear-gradient(135deg,#0b1020,#070B12);
+  color:var(--text);
+}
+
+/* Header */
+header{
+  position:sticky; top:0; z-index:1000;
+  background:rgba(14,14,16,.86);
+  backdrop-filter: blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.topbar{
+  max-width:1600px;
+  margin:auto;
+  padding:14px clamp(14px, 2.8vw, 26px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+
+.brand{
+  display:flex; align-items:center; gap:12px;
+  min-width:230px;
+}
+.brand img{
+  width:52px; height:52px;
+  border-radius:50%;
+  border:2px solid rgba(214,177,90,.55);
+  box-shadow:0 0 18px rgba(214,177,90,.18);
+  object-fit:cover;
+}
+.brand .name{
+  font-weight:800;
+  color:var(--accent);
+  font-size:16px;
+}
+
+.titleCenter{
+  flex:1;
+  text-align:center;
+  font-weight:900;
+  font-size:22px;
+  color:var(--accent);
+}
+
+.links{
+  display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+}
+.linkBtn{
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  text-decoration:none;
+  transition:.18s;
+}
+.linkBtn:hover{transform:translateY(-2px); background:rgba(255,255,255,.08)}
+.linkBtn.gold{
+  border:0;
+  background:linear-gradient(90deg,var(--accent2),var(--accent));
+  color:#0b0f19;
+}
+
+/* Page */
+.container{
+  max-width:1600px;
+  margin:auto;
+  padding:28px clamp(14px, 4.8vw, 110px);
+}
+
+.note{
+  background:rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  padding:14px 16px;
+  color:var(--muted);
+  line-height:1.8;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:16px;
+}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2, 1fr);}}
+@media(max-width:650px){.grid{grid-template-columns:1fr;}}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-80px -80px auto auto;
+  width:180px;
+  height:180px;
+  background:radial-gradient(circle, rgba(214,177,90,.20), transparent 60%);
+  filter:blur(8px);
+}
+
+.iconWrap{
+  display:flex;
+  justify-content:center;
+  margin-bottom:10px;
+}
+
+.icon{
+  width:74px;
+  height:74px;
+  border-radius:50%;
+  border:2px solid rgba(214,177,90,.55);
+  box-shadow:0 0 22px rgba(214,177,90,.18);
+  object-fit:cover;
+  background:rgba(255,255,255,.06);
+}
+
+.roleTitle{
+  text-align:center;
+  font-size:20px;
+  font-weight:900;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.roleDesc{
+  color:rgba(248,250,252,.80);
+  line-height:1.9;
+  font-weight:700;
+  font-size:14px;
+  text-align:center;
+  min-height:110px;
+}
+
+.actions{
+  margin-top:14px;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:0;
+  cursor:pointer;
+  border-radius:12px;
+  padding:10px 14px;
+  font-weight:900;
+  transition:.18s;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.btn.primary{
+  background:linear-gradient(90deg,var(--accent2),var(--accent));
+  color:#0b0f19;
+}
+.btn.primary:hover{opacity:.92; transform:translateY(-2px)}
+.btn.ghost{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.15);
+  color:var(--text);
+}
+.btn.ghost:hover{background:rgba(255,255,255,.05); transform:translateY(-2px)}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:26px 0 10px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <!-- غيّر اسم الصورة هنا لشعار العاذرية -->
+      <img src="logo.png.gif" alt="شعار العاذرية">
+      <div class="name">مقاطعة العاذرية</div>
+    </div>
+
+    <div class="titleCenter">معرف الوظائف</div>
+
+    <div class="links">
+      <a class="linkBtn" href="index.html">🏠 الرئيسية</a>
+      <a class="linkBtn" href="rules.html">📜 القوانين</a>
+      <a class="linkBtn gold" href="sectors.html">🛡️ القطاعات</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="note">
+    اختر أي وظيفة لقراءة تعريف مختصر عنها
+  </div>
+
+  <div class="grid">
+
+    <!-- الأمن العام -->
+    <div class="card">
+      <div class="iconWrap">
+        <img class="icon" src="logo.png.gif" alt="شعار العاذرية">
+      </div>
+      <div class="roleTitle"> الأمن العام</div>
+      <div class="roleDesc">
+       هو قطاع ذو كيان هرمي مدرب تدريبا خاصا للمحافظة على الأمن وتطبيق الأنظمة والقواعد حسب دستور معين وفرضها على مناطق تم السيطرة عليها
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="sectors.html#public">معرفة المزيد</a>
+      </div>
+    </div>
+
+    <!-- أمن المنشآت -->
+    <div class="card">
+      <div class="iconWrap">
+        <img class="icon" src="logo.png.gif" alt="شعار العاذرية">
+      </div>
+      <div class="roleTitle"> أمن المنشآت</div>
+      <div class="roleDesc">
+       يتولى قطاع امن المنشات مسؤولية الحماية الكاملة لجميع المنشأت الحكومية وبما فيها تأمين الميناء البحري الرئيسي وتوسعاته والقضاء على المهربين والامساك بهم داخل الميناء ويحرص القطاع على تأمين الميناء والمنشأت الحكومية لمقاطقة بوليتو وهو قطاع يحمل كذلك مسؤولية المباشرة بالميناء صباحا و بمدينة لوس سانتوس مساء , وتعتبر احد انجازات هذا القطاع هو سرية الطوارئ الموكلة بحماية لوس والتابع لامن المنشأت
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="sectors.html#facility">معرفة المزيد</a>
+      </div>
+    </div>
+
+    <!-- الهلال الأحمر -->
+    <div class="card">
+      <div class="iconWrap">
+        <img class="icon" src="logo.png.gif" alt="شعار العاذرية">
+      </div>
+      <div class="roleTitle"> الهلال الأحمر</div>
+      <div class="roleDesc">
+       تقديم الخدمات الطبية الإسعافية للمواطنين والمقيمين في مقاطعة بوليتو في الظروف العادية والكوارث، والإسهام في رفع مستوى الوعي الصحي للمواطنين كما تشارك في أعمال المساندة للقطاعات الاخرى في مهامهم
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="sectors.html#red">معرفة المزيد</a>
+      </div>
+    </div>
+
+    <!-- اللاعب المعتمد -->
+    <div class="card">
+      <div class="iconWrap">
+        <img class="icon" src="logo.png.gif" alt="شعار العاذرية">
+      </div>
+      <div class="roleTitle"> اللاعب المعتمد</div>
+      <div class="roleDesc">
+       الاعب المعتمد يتيح لك الفرصة بالانتداب من قطاع الى اخر حسب الرتبة الممنوحة لك لـسد العجز بالوظيفة مع إمكانية الانتداب بين القطاع الاساسي والثانوي فترة زمنية محدده حسب الرتبة لديك
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="sectors.html#trusted">معرفة المزيد</a>
+      </div>
+    </div>
+
+    <!-- كراج الميكانيك -->
+    <div class="card">
+      <div class="iconWrap">
+        <img class="icon" src="logo.png.gif" alt="شعار العاذرية">
+      </div>
+      <div class="roleTitle"> كراج الميكانيك</div>
+      <div class="roleDesc">
+       يعتبر قطاع الميكانيك جزءًا لا يتجزاأ من مقاطعة بوليتو , حيث يخدم هذا القطاع عدة فئات تشمل المركبات الحكومية , مركبات المتجر , ومركبات المواطنين . اهدافنا :الجودة والكفاءة : تقديم خدمات ذات جودة عالية وكفاءة متناهية , مع التركيز على تلبية احتياجات العملاء في أسرع وقت ممكن.
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="sectors.html#mechanic">معرفة المزيد</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">© ATH - مقاطعة العاذرية</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>قوانين مقاطعة العاذرية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* ألوان قريبة من اللوقو (ذهبي/نحاسي) بدون بنفسجي */
+      --bg:#070B12;
+      --panel: rgba(15, 23, 42, 0.72);
+      --card: rgba(10, 15, 25, 0.72);
+      --border: rgba(255,255,255,0.10);
+
+      --gold:#D6B15A;
+      --gold2:#A98A3A;
+      --ink:#F8FAFC;
+      --muted: rgba(248,250,252,0.72);
+
+      --shadow: 0 16px 45px rgba(0,0,0,0.55);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'Cairo',sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 500px at 18% 10%, rgba(214,177,90,.16), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(169,138,58,.10), transparent 55%),
+        linear-gradient(135deg,#0b1020,#070B12);
+      min-height:100vh;
+    }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:999;
+      background: rgba(16,16,16,0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav{
+      max-width:1200px;
+      margin:auto;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 260px;
+    }
+    .brand img{
+      height:54px; width:54px;
+      border-radius:50%;
+      border:2px solid rgba(214,177,90,.55);
+      box-shadow: 0 0 20px rgba(214,177,90,.18);
+      object-fit:cover;
+    }
+    .logo{
+      font-weight:800;
+      font-size:18px;
+      color:var(--gold);
+      letter-spacing:.2px;
+    }
+
+    .badges{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .badge{
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:var(--ink);
+      font-size:12px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .badge.primary{
+      border:0;
+      background: linear-gradient(90deg, var(--gold2), var(--gold));
+      color:#0b0f18;
+    }
+    .badge a{
+      color:var(--gold);
+      text-decoration:none;
+      font-weight:900;
+    }
+
+    /* Layout */
+    .container{max-width:1200px;margin:auto;padding:24px;}
+    .hero{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:start;
+      margin-bottom:18px;
+    }
+    @media(max-width:900px){.hero{grid-template-columns:1fr;}}
+
+    .card{
+      background: var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px;
+      box-shadow: var(--shadow);
+    }
+    .h1{font-size:34px;color:var(--gold);margin-bottom:10px;}
+    .p{color:var(--muted);line-height:1.8;}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      cursor:pointer;
+      border:0;
+      border-radius:12px;
+      padding:12px 16px;
+      font-weight:900;
+      transition: transform .18s ease, opacity .18s ease, background .18s ease;
+      text-decoration:none;
+      user-select:none;
+    }
+    .btn.primary{
+      background: linear-gradient(90deg, var(--gold2), var(--gold));
+      color:#0b0f18;
+    }
+    .btn.primary:hover{opacity:.92;transform:translateY(-2px);}
+    .btn.ghost{
+      background: transparent;
+      color: var(--ink);
+      border:1px solid rgba(255,255,255,.15);
+    }
+    .btn.ghost:hover{background: rgba(255,255,255,.05); transform:translateY(-2px);}
+
+    /* Agree */
+    .notice{display:flex;gap:10px;align-items:flex-start}
+    .checkbox{transform:scale(1.15); margin-top:4px;}
+    #agreeMsg{margin-top:10px;color:var(--gold);font-weight:900;}
+
+    /* Controls */
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin: 16px 0 12px;
+      padding: 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+    }
+    .tabs{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
+    }
+    .tab{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color:#fff;
+      cursor:pointer;
+      font-weight:900;
+      transition: transform .18s ease, background .18s ease;
+      user-select:none;
+    }
+    .tab:hover{transform:translateY(-2px); background: rgba(255,255,255,.08);}
+    .tab.active{
+      border:0;
+      background: linear-gradient(90deg, var(--gold2), var(--gold));
+      color:#0b0f18;
+    }
+
+    .searchBox{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .searchBox input{
+      width: min(420px, 82vw);
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--ink);
+      outline:none;
+      font-family: inherit;
+      font-weight:700;
+    }
+    .searchBox input::placeholder{color: rgba(248,250,252,.55);}
+    .hint{
+      color: rgba(248,250,252,.70);
+      font-size: 12.5px;
+      font-weight:700;
+    }
+
+    /* Rules sections */
+    .section{
+      margin-top: 14px;
+      padding: 18px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 10px 28px rgba(0,0,0,.25);
+    }
+    .sectionTitle{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom: 12px;
+    }
+    .sectionTitle h2{
+      font-size:22px;
+      color: var(--gold);
+      margin:0;
+    }
+
+    /* القوانين كسطور عريضة (مو مربعات جنب بعض) */
+    .rulesList{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .ruleLine{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      padding: 14px 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .ruleLine::before{
+      content:"";
+      position:absolute;
+      inset:0 auto 0 0;
+      width:5px;
+      background: linear-gradient(180deg, var(--gold), rgba(214,177,90,.25));
+    }
+
+    /* رقم فوق ثم النص تحت */
+    .ruleNo{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(214,177,90,.12);
+      border:1px solid rgba(214,177,90,.22);
+      color: var(--gold);
+      font-weight:900;
+      font-size:12px;
+      margin-bottom:10px;
+    }
+    .ruleText{
+      line-height:1.9;
+      color: rgba(248,250,252,.90);
+      font-weight:700;
+      font-size: 15.5px;
+    }
+
+    .footer{
+      text-align:center;
+      color: rgba(248,250,252,.60);
+      padding: 26px 0 12px;
+      font-size: 13px;
+    }
+
+    /* EN mode: فقط اتجاه/واجهة (النصوص العربية تبقى) */
+    html.en{direction:ltr;}
+    html.en body{direction:ltr;}
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <img src="logo.png.gif" alt="Logo">
+      <div class="logo">مـقــاطـعــة العــاذريــــة</div>
+    </div>
+
+    <div class="badges">
+      <span class="badge primary" data-i18n="official">قوانين السيرفر الرسمية</span>
+      <span class="badge" data-i18n="editable">هذه القوانين قابلة للتعديل في أي وقت</span>
+      <span class="badge"><a href="https://discord.gg/athh" target="_blank" rel="noopener">انضم لسيرفرنا</a></span>
+      <button class="badge" id="langBtn" style="cursor:pointer;" title="واجهة EN">EN</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <section class="hero">
+    <div class="card">
+      <h1 class="h1">📜 قوانين مقاطعة العاذرية</h1>
+      <p class="p">
+        الالتزام بهذه القوانين إلزامي على جميع اللاعبين لضمان تجربة لعب عادلة، واضحة، ومحترفة للجميع.
+      </p>
+
+      <div class="actions">
+        <button class="btn primary" onclick="scrollToRules()">ابدأ القراءة</button>
+        <button class="btn ghost" onclick="window.print()">طباعة </button>
+        <a href="index.html" class="btn ghost">🏠 الرئيسية</a>
+        <a href="sectors.html" class="btn primary">🛡️ صفحة القطاعات</a>
+        <a href="jobs.html" class="btn primary">⭐ معرف الوظائف</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="notice">
+        <input id="agree" type="checkbox" class="checkbox">
+        <label for="agree" class="p" style="margin:0;">أقرّ بأنني قرأت جميع القوانين وأوافق عليها.</label>
+      </div>
+      <div class="actions" style="margin-top:12px;">
+        <button class="btn primary" style="width:100%" onclick="agree()">موافق</button>
+      </div>
+      <p id="agreeMsg"></p>
+
+      <div class="hint" style="margin-top:10px;">
+        💡 الالتزام بالقوانين المقاطعه يشمل تعاونكم معنا
+      </div>
+    </div>
+  </section>
+
+  <section id="rules" class="section">
+
+    <div class="controls">
+      <div class="tabs" id="tabs">
+        <div class="tab active" data-target="rules-main">⚖️ قوانين المقاطعة</div>
+        <div class="tab" data-target="rules-dis">🌐 قوانين الديسكورد</div>
+        <div class="tab" data-target="rules-notes">📢 تنويهات عامة</div>
+        <div class="tab" data-target="rules-smuggle">📦 قوانين التهريب</div>
+        <div class="tab" data-target="rules-crime">💥 قوانين الإجرام</div>
+        <div class="tab" data-target="rules-rob">💰 قوانين السرقات</div>
+        <div class="tab" data-target="rules-vos">💬 قوانين المشاركة</div>
+        <div class="tab" data-target="rules-men">⚓ قوانين الميناء</div>
+      </div>
+
+      <div class="searchBox">
+        <input id="search" type="text" placeholder="ابحث داخل القوانين… (مثال: باند / تهريب / رهينة)" />
+        <button class="btn ghost" id="showAllBtn" type="button">إظهار الكل</button>
+      </div>
+    </div>
+
+    <!-- ============ 1) قوانين المقاطعة ============ -->
+    <div class="rules-section" id="rules-main">
+      <div class="sectionTitle"><h2>⚖️ قوانين المقاطعة</h2></div>
+      <div class="rulesList">
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 1</div><div class="ruleText">يُمنع الإساءة للإدارة أو التشهير بها داخل المقاطعة أو التكتات أو البثوث.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 2</div><div class="ruleText">يُمنع اختيار جنس للشخصية لا يطابق الجنس الواقعي للاعب.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 3</div><div class="ruleText">يجب أن يكون اسم الهوية (اسم أول + اسم ثانٍ) واقعيًا. يُمنع استخدام أسماء غير لائقة أو مثيرة للحساسية (دينيًا/عرقيًا) أو أسماء رموز/قادة/رؤساء.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 4</div><div class="ruleText">يُمنع طلب مطاردة رجال الأمن أو الترصد لهم بهدف القتل دون سبب تمثيلي وجيه.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 5</div><div class="ruleText">يُمنع التواصل غير الشرعي أثناء أي سيناريو قائم.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 6</div><div class="ruleText">يُمنع الترصد لأصحاب البثوث عبر البث المباشر.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 7</div><div class="ruleText">يُمنع الترصد/المضايقة المتعمدة للمواطنين دون سبب تمثيلي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 8</div><div class="ruleText">يُمنع الخروج من ديسكورد المقاطعة أثناء امتلاك رولات وظيفية معتمدة. يجب تقديم الاستقالة رسميًا أولًا.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 9</div><div class="ruleText">يحق للرهينة الهروب إذا كان المجرم غافلًا ولم يُظهر سلاحًا ولم يسيطر على الموقف.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 10</div><div class="ruleText">الالتزام بالاحترام المتبادل واجب على الجميع.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 11</div><div class="ruleText">يُمنع استغلال الثغرات أو أي طريقة لزيادة الخبرة/الأموال. العقوبة قد تصل للباند النهائي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 12</div><div class="ruleText">يُمنع ذكر أو الترويج لمقاطعات/سيرفرات أخرى أو نشر أسماء مدن خارج نطاق المقاطعة داخل اللعبة أو الديسكورد.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 13</div><div class="ruleText">يُمنع المقاومة بعد الإنعاش مباشرة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 14</div><div class="ruleText">يُمنع إطلاق النار بوجود منسوبي الهلال الأحمر قرب موقع الحدث.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 15</div><div class="ruleText">يُمنع الطلب من الهلال الأحمر مغادرة الموقع بالقوة أو التهديد.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 16</div><div class="ruleText">يُمنع دخول نداءات الاستغاثة لأي سبب. يُستثنى فقط النداءات في أماكن لا يمكن تجنبها، ويعود التقدير للرقابة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 17</div><div class="ruleText">يُمنع استغلال “القدرات المحدودة” بطرق غير واقعية أثناء حمل السلاح (مثل الصفع/التعطيل بهدف غير تمثيلي).</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 18</div><div class="ruleText">يُمنع مضايقة/قتل/تهديد/خطف موظفي الهلال الأحمر وموظفي كراج الميكانيك.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 19</div><div class="ruleText">يُمنع استخدام أي مواد غش/هاك/ملفات تؤثر على اللعب. العقوبة: باند نهائي، وقد تشمل الحسابات المرتبطة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 20</div><div class="ruleText">يُمنع طلب الإنعاش عبر التذاكر أو استخدام “خارج”. يجب انتظار الوحدة الإسعافية.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 21</div><div class="ruleText">يُمنع طرح مواضيع دينية/سياسية/عرقية داخل المقاطعة أو الديسكورد.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 22</div><div class="ruleText">يُمنع أي إيحاءات/تصرفات غير لائقة أو جنسية (كتابة/حركات/إشارات). العقوبة قد تصل للباند النهائي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 23</div><div class="ruleText">أثناء مطاردة رجال الأمن: يُمنع صعود الجبال بمركبات غير مخصصة بشكل غير واقعي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 24</div><div class="ruleText">أثناء مطاردة الوحدات العسكرية: يُمنع دخول المنازل أو التوجه لمناطق آمنة للهروب.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 25</div><div class="ruleText">يُمنع الصدم غير الواقعي في جميع الحالات.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 26</div><div class="ruleText">يُمنع الهروب عبر البحر دون قارب مجهز.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 27</div><div class="ruleText">مناطق البيع تُعد مناطق آمنة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 28</div><div class="ruleText">محلات الملابس/الأوشمة/الحلاقة تُعد مواقع آمنة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 29</div><div class="ruleText">يجب الالتزام بالقيادة الواقعية لجميع المركبات.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 30</div><div class="ruleText">يُمنع استخدام الشخصية الافتراضية/الخروج عن الواقعية بشكل يضر التمثيل.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 31</div><div class="ruleText">يُمنع دخول المناطق المحظورة (مثل الموانئ وقت الإغلاق/الاستنفار). يجب المغادرة فورًا.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 32</div><div class="ruleText">المراقب خارج التمثيل تمامًا. يُمنع التفاعل معه أو الحديث معه لأي سبب.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 33</div><div class="ruleText">يُمنع إدخال الحمولات للموانئ قبل افتتاحها رسميًا من الجهات المختصة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 34</div><div class="ruleText">يجب تشغيل التصوير طوال فترة التواجد لحفظ الحقوق، ويحق للمراقب طلبه. يجب حفظه عند وجود بلاغ.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 35</div><div class="ruleText">يُمنع مضايقة أصحاب المتاجر أو التعرض لهم أثناء تعبئة متاجرهم.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 36</div><div class="ruleText">يُمنع تحريك المسقط بأي طريقة (يُعد ثغرة/استغلال).</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 37</div><div class="ruleText">يُمنع استعمال حركات غير لائقة على اللاعبين.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 38</div><div class="ruleText">يُمنع تثبيت المركبات بشكل غير واقعي على الفلص.</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 39</div><div class="ruleText">يُمنع تبادل الأموال/الأسلحة/المركبات أو الأشياء عالية القيمة بكميات كبيرة خارج الأنظمة. (أي تجاوز قد يؤدي لتصفير/عقوبات).</div></div>
+        <div class="ruleLine"><div class="ruleNo">قانون رقم 40</div><div class="ruleText">يُمنع بيع/عرض/تبادل حسابات اللعبة أو استخدام حساب شخص آخر. المخالفة قد تؤدي للباند الدائم وتصفير البيانات.</div></div>
+      </div>
+    </div>
+
+    <!-- ============ 2) قوانين الديسكورد ============ -->
+    <div class="rules-section" id="rules-dis" style="display:none;">
+      <div class="sectionTitle"><h2>🌐 قوانين الديسكورد</h2></div>
+      <div class="rulesList">
+        <div class="ruleLine"><div class="ruleNo">1</div><div class="ruleText">يُمنع نشر روابط/اختصارات/رموز للترويج لسيرفرات أخرى.</div></div>
+        <div class="ruleLine"><div class="ruleNo">2</div><div class="ruleText">يُمنع وضع أسماء خادشة للحياء أو الذوق العام.</div></div>
+        <div class="ruleLine"><div class="ruleNo">3</div><div class="ruleText">يُمنع إرسال صور أو محتوى مخِلّ بالآداب.</div></div>
+        <div class="ruleLine"><div class="ruleNo">4</div><div class="ruleText">يُمنع الإساءة لأعضاء المقاطعة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">5</div><div class="ruleText">يُمنع مناقشة المواضيع الدينية/السياسية/العرقية.</div></div>
+        <div class="ruleLine"><div class="ruleNo">6</div><div class="ruleText">يُمنع السخرية والاستهزاء بالآخرين، وقد تصل العقوبة لمنع الكتابة أو الباند.</div></div>
+        <div class="ruleLine"><div class="ruleNo">7</div><div class="ruleText">التواصل مع إدارة الرقابة يكون عبر التكت فقط، ويُمنع المنشن.</div></div>
+        <div class="ruleLine"><div class="ruleNo">8</div><div class="ruleText">يُمنع استخدام كروت/برامج تغيير الصوت في الرومات الصوتية.</div></div>
+        <div class="ruleLine"><div class="ruleNo">9</div><div class="ruleText">الاحترام مبدأ أساسي يجب على الجميع الالتزام به.</div></div>
+        <div class="ruleLine"><div class="ruleNo">10</div><div class="ruleText">يُمنع استخدام أسماء غير لائقة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">11</div><div class="ruleText">يُمنع انتحال الشخصيات الإدارية، والعقوبة قد تصل لباند نهائي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">12</div><div class="ruleText">يُمنع نشر أي محتوى خادش/مخِلّ، والعقوبة قد تصل لحظر نهائي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">13</div><div class="ruleText">السبام قد يؤدي لمنع الكتابة أو الحديث.</div></div>
+        <div class="ruleLine"><div class="ruleNo">14</div><div class="ruleText">تُقبل الشكاوى خلال 24 ساعة من الحدث، وبعدها تخضع للتقييم حسب الحالة.</div></div>
+      </div>
+    </div>
+
+    <!-- ============ 3) تنويهات عامة ============ -->
+    <div class="rules-section" id="rules-notes" style="display:none;">
+      <div class="sectionTitle"><h2>📢 تنويهات عامة</h2></div>
+      <div class="rulesList">
+        <div class="ruleLine"><div class="ruleNo">1</div><div class="ruleText">ربط حسابك بأي حساب آخر مسؤوليتك. إذا تم حظر الشخص المرتبط قد تُمنع من الدخول حتى فك حظره.</div></div>
+        <div class="ruleLine"><div class="ruleNo">2</div><div class="ruleText">حسابك مسؤوليتك بالكامل، ويجب الدخول بالحساب الأساسي الذي توجد عليه الخبرة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">3</div><div class="ruleText">يُمنع التواجد أو الدعم أو الترويج لسيرفرات الغش/الهاكات، والعقوبة باند دائم.</div></div>
+        <div class="ruleLine"><div class="ruleNo">4</div><div class="ruleText">التلاعب أو الكذب في تكتات التعويض يعرضك للمحاسبة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">5</div><div class="ruleText">قد يتم سحب الأسلحة تلقائيًا عند تغيير الهوية، ولا تعويض على المسحوب.</div></div>
+        <div class="ruleLine"><div class="ruleNo">6</div><div class="ruleText">قد يتم خصم خبرة عند دهس مواطن، ولا يُفتح تكت إلا إذا كان الخصم بسبب خطأ برمجي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">7</div><div class="ruleText">قد يتم سحب المنازل تلقائيًا عند الإهمال/عدم الدخول فترة طويلة، ولا تعويض.</div></div>
+        <div class="ruleLine"><div class="ruleNo">8</div><div class="ruleText">في حال التحلل تُسحب الممنوعات/الأسلحة تلقائيًا ولا تعويض. ويُمنع التحلل أثناء السيناريو.</div></div>
+        <div class="ruleLine"><div class="ruleNo">9</div><div class="ruleText">عدم تسديد المخالفات/الغرامات الرقابية قد يمنعك من الميناء أو الوظائف المعتمدة.</div></div>
+      </div>
+    </div>
+
+    <!-- ============ 4) التهريب ============ -->
+    <div class="rules-section" id="rules-smuggle" style="display:none;">
+      <div class="sectionTitle"><h2>📦 قوانين التهريب</h2></div>
+      <div class="rulesList">
+        <div class="ruleLine"><div class="ruleNo">1</div><div class="ruleText">يُسمح بدخول الميناء للتهريب حسب أنظمة السيرفر (مركبة/قارب/هليكوبتر).</div></div>
+        <div class="ruleLine"><div class="ruleNo">2</div><div class="ruleText">يُسمح باستخدام لبس الوظائف العامة للتمويه لتشتيت الأمن (حسب الأنظمة).</div></div>
+        <div class="ruleLine"><div class="ruleNo">3</div><div class="ruleText">يُمنع قتل وحدات التفتيش الثابتة في الميناء (أمن 1 + أمن 2).</div></div>
+        <div class="ruleLine"><div class="ruleNo">4</div><div class="ruleText">يُمنع القتل العشوائي للعساكر؛ يُكتفى بإسقاط من يعترض طريقك أو يحاول اعتقالك ضمن السيناريو.</div></div>
+        <div class="ruleLine"><div class="ruleNo">5</div><div class="ruleText">أقل عدد ممنوعات لدخول الميناء: 50 شدة (خلاف ذلك يعرضك للمحاسبة).</div></div>
+        <div class="ruleLine"><div class="ruleNo">6</div><div class="ruleText">عند استحالة الهروب: لا يُمنع تسليم نفسك حفاظًا على حياتك.</div></div>
+        <div class="ruleLine"><div class="ruleNo">7</div><div class="ruleText">يُمنع استخدام السلاح من القارب ضد أشخاص على رصيف الميناء (ينطبق على الجميع).</div></div>
+        <div class="ruleLine"><div class="ruleNo">8</div><div class="ruleText">إذا رفض المهرب الاستسلام ولم يستجب للتحذيرات: يحق للأمن إسقاطه إذا كان مسلحًا فقط.</div></div>
+        <div class="ruleLine"><div class="ruleNo">9</div><div class="ruleText">يُمنع دخول الميناء بدون ممنوعات بهدف إطلاق النار أو حماية صديق.</div></div>
+        <div class="ruleLine"><div class="ruleNo">10</div><div class="ruleText">عند رفع منطقة محظورة/إغلاق الميناء: يُمنع الدخول ويجب المغادرة فورًا.</div></div>
+        <div class="ruleLine"><div class="ruleNo">11</div><div class="ruleText">إذا لم يتم كشفك: يُمنع كشف نفسك عمدًا بهدف تبادل إطلاق النار.</div></div>
+        <div class="ruleLine"><div class="ruleNo">12</div><div class="ruleText">يُمنع تعريض المواطنين/التجار للخطر أثناء التهريب (لا قتل دون هدف ضمن السيناريو).</div></div>
+        <div class="ruleLine"><div class="ruleNo">13</div><div class="ruleText">يُمنع الوقوف خلف الشبك داخل الميناء. تحذير 5 ثوانٍ ثم يحق للأمن القبض عليك.</div></div>
+        <div class="ruleLine"><div class="ruleNo">14</div><div class="ruleText">الفصل أثناء التهريب يعرضك لعقوبات شديدة.</div></div>
+      </div>
+    </div>
+
+    <!-- ============ 5) الإجرام ============ -->
+    <div class="rules-section" id="rules-crime" style="display:none;">
+      <div class="sectionTitle"><h2>💥 قوانين الإجرام</h2></div>
+      <div class="rulesList">
+        <div class="ruleLine"><div class="ruleNo">1</div><div class="ruleText">ممنوع طلب إزالة الدوريات/رجال الأمن من الموقع (يعتبر تخريب تمثيل).</div></div>
+        <div class="ruleLine"><div class="ruleNo">2</div><div class="ruleText">يجب الجدية في السرقات وعدم التراخي بين المجرمين ورجال الأمن.</div></div>
+        <div class="ruleLine"><div class="ruleNo">3</div><div class="ruleText">يُمنع تهديد/خطف مواطن بدون سبب وجيه، ويُمنع تهديده لتحويل مبالغ.</div></div>
+        <div class="ruleLine"><div class="ruleNo">4</div><div class="ruleText">يُمنع قتل أو اختطاف المفاوض داخل السيناريو.</div></div>
+        <div class="ruleLine"><div class="ruleNo">5</div><div class="ruleText">يُمنع تهديد رجل الأمن لاستخدامه في السرقة، ويُسمح فقط ضمن سبب تمثيلي واضح (مثل فك زميل قبل سجنه).</div></div>
+        <div class="ruleLine"><div class="ruleNo">6</div><div class="ruleText">يُمنع دخول موقع السرقة إلا بعد انتهاء السيناريو بالكامل.</div></div>
+        <div class="ruleLine"><div class="ruleNo">7</div><div class="ruleText">يُمنع القتل بدون سبب/هدف. يجب التحذير أولًا ثم الإسقاط عند عدم التجاوب.</div></div>
+        <div class="ruleLine"><div class="ruleNo">8</div><div class="ruleText">بعد قتل شخص يجب تمثيل الهروب مباشرة وعدم انتظار الأمن لتبادل إطلاق النار.</div></div>
+        <div class="ruleLine"><div class="ruleNo">9</div><div class="ruleText">يحق لك طلب واحد فقط على جميع الرهائن (الزيادة تعرضك للمحاسبة).</div></div>
+        <div class="ruleLine"><div class="ruleNo">10</div><div class="ruleText">يُمنع الخروج من السيرفر أثناء سيناريو قائم. عند عودة بسبب مشكلة تقنية: سلّم نفسك للأمن.</div></div>
+        <div class="ruleLine"><div class="ruleNo">11</div><div class="ruleText">يُمنع سرقة مركبات العاملين في الوظائف العامة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">12</div><div class="ruleText">يُمنع التواصل غير الشرعي أثناء السيناريو.</div></div>
+        <div class="ruleLine"><div class="ruleNo">13</div><div class="ruleText">يُمنع إطلاق النار خارج نداء الاستغاثة إذا وصلت والنداء مرفوع مسبقًا.</div></div>
+        <div class="ruleLine"><div class="ruleNo">14</div><div class="ruleText">يُمنع الإطلاق العشوائي بدون سبب.</div></div>
+        <div class="ruleLine"><div class="ruleNo">15</div><div class="ruleText">يُمنع التعرض لمركبات الشرطة العسكرية، ويُمنع على منسوبيها الدخول بالسيناريو والتفاعل به.</div></div>
+        <div class="ruleLine"><div class="ruleNo">16</div><div class="ruleText">يُمنع تكرار السلوك الإجرامي خلال مدة قصيرة (15 دقيقة).</div></div>
+        <div class="ruleLine"><div class="ruleNo">17</div><div class="ruleText">يُمنع الإجرام فوق أسطح المباني العالية منعًا باتًا.</div></div>
+        <div class="ruleLine"><div class="ruleNo">18</div><div class="ruleText">يُمنع التعرض لنقاط التفتيش أو إطلاق النار عليها.</div></div>
+        <div class="ruleLine"><div class="ruleNo">19</div><div class="ruleText">يُمنع استخدام جركل البنزين لغرض الإجرام، ويُمنع حرق المسقط أو المركبات.</div></div>
+        <div class="ruleLine"><div class="ruleNo">20</div><div class="ruleText">يُمنع الإجرام في جزيرة فرسان بشكل نهائي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">21</div><div class="ruleText">يُمنع التخريب واستغلال ثغرة المنظور الثالث.</div></div>
+        <div class="ruleLine"><div class="ruleNo">22</div><div class="ruleText">يُمنع الإجرام داخل متجر إيكيا بشكل نهائي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">23</div><div class="ruleText">تقدير الحياة إلزامي. يُمنع مقاومة السلاح الناري بأسلحة بيضاء بشكل غير منطقي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">24</div><div class="ruleText">يُمنع التجول بعدة الغوص داخل المدينة أو الإجرام بها. تُستخدم للغوص داخل البحر فقط.</div></div>
+        <div class="ruleLine"><div class="ruleNo">25</div><div class="ruleText">يُمنع بدء أي فعل إجرامي أثناء إعلان “ممنوع الإجرام”.</div></div>
+      </div>
+    </div>
+
+    <!-- ============ 6) السرقات ============ -->
+    <div class="rules-section" id="rules-rob" style="display:none;">
+      <div class="sectionTitle"><h2>💰 قوانين السرقات</h2></div>
+      <div class="rulesList">
+        <div class="ruleLine"><div class="ruleNo">1</div><div class="ruleText">البنك الفرعي: الحد الأدنى 3 مجرمين، الحد الأقصى 4 (+1 تدخل خارجي)، الحد الأقصى للأمن 6.</div></div>
+        <div class="ruleLine"><div class="ruleNo">2</div><div class="ruleText">البنك المركزي: الحد الأدنى 6 مجرمين، الحد الأقصى 8، الحد الأقصى للأمن 10.</div></div>
+        <div class="ruleLine"><div class="ruleNo">3</div><div class="ruleText">المجوهرات: الحد الأدنى 2 مجرمين، الحد الأقصى 4 (+1 تدخل خارجي)، الحد الأقصى للأمن 6.</div></div>
+        <div class="ruleLine"><div class="ruleNo">4</div><div class="ruleText">البقالة/البنك/الصيدلية/المطعم: الحد الأدنى 2، الحد الأقصى 3 (+1 تدخل خارجي)، الحد الأقصى للأمن 5.</div></div>
+        <div class="ruleLine"><div class="ruleNo">5</div><div class="ruleText">متجر الأسلحة: الحد الأدنى 2، الحد الأقصى 3 (+1 تدخل خارجي)، الحد الأقصى للأمن 5.</div></div>
+        <div class="ruleLine"><div class="ruleNo">6</div><div class="ruleText">المستودعات الطبية (عدة البقالة): الحد الأدنى 4، الحد الأقصى 6، الحد الأقصى للأمن 7.</div></div>
+        <div class="ruleLine"><div class="ruleNo">7</div><div class="ruleText">الدواجن (عدة البقالة): الحد الأدنى 3، الحد الأقصى 5، الحد الأقصى للأمن 6.</div></div>
+        <div class="ruleLine"><div class="ruleNo">8</div><div class="ruleText">سرقة المنازل: الحد الأقصى شخصين. أثناء منع الإجرام تُسمح بدون سلاح فقط. يجب تمثيل الهروب مباشرة بعد السرقة. (تُمنع مركبات: سوبر كار/حلبات/دراق/دبابات).</div></div>
+        <div class="ruleLine"><div class="ruleNo">9</div><div class="ruleText">اعتراض موكب نقل السجون: دوريتان بإجمالي 3 عساكر. يُسمح مرة واحدة خارج حدود السجن المركزي. المجرمين 2. يمنع إسقاط السائق بعد فك الأصفاد.</div></div>
+      </div>
+    </div>
+
+    <!-- ============ 7) المشاركة ============ -->
+    <div class="rules-section" id="rules-vos" style="display:none;">
+      <div class="sectionTitle"><h2>💬 قوانين المشاركة</h2></div>
+      <div class="rulesList">
+        <div class="ruleLine"><div class="ruleNo">1</div><div class="ruleText">يُمنع نشر فيديوهات/صور مخلة بالآداب.</div></div>
+        <div class="ruleLine"><div class="ruleNo">2</div><div class="ruleText">يُمنع نشر محتوى من خارج مقاطعة العاذرية.</div></div>
+        <div class="ruleLine"><div class="ruleNo">3</div><div class="ruleText">يُمنع نشر محتوى بهدف الاستهزاء على الأشخاص أو القطاعات.</div></div>
+        <div class="ruleLine"><div class="ruleNo">4</div><div class="ruleText">يُمنع إرسال مشاركة تخص شكوى أو خطأ برمجي.</div></div>
+        <div class="ruleLine"><div class="ruleNo">5</div><div class="ruleText">يُمنع الكتابة أو التحدث في رومات المشاركة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">6</div><div class="ruleText">يُمنع التطرق للسياسة/الدين/العنصرية.</div></div>
+        <div class="ruleLine"><div class="ruleNo">7</div><div class="ruleText">يُمنع نشر ما يعتبر إهانة للوظائف العسكرية.</div></div>
+        <div class="ruleLine"><div class="ruleNo">8</div><div class="ruleText">الروم مخصص لمقاطع من داخل المقاطعة فقط.</div></div>
+        <div class="ruleLine"><div class="ruleNo">9</div><div class="ruleText">احرص على إبراز الإبداع بما يليق بالمقاطعة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">10</div><div class="ruleText">المشاركة تعني تقديم شيء جميل يبرز جمال المقاطعة.</div></div>
+      </div>
+    </div>
+
+    <!-- ============ 8) الميناء ============ -->
+    <div class="rules-section" id="rules-men" style="display:none;">
+      <div class="sectionTitle"><h2>⚓ قوانين الميناء</h2></div>
+      <div class="rulesList">
+        <div class="ruleLine"><div class="ruleNo">1</div><div class="ruleText">عند الانتظار أمام بوابة الميناء: الالتزام بمسافة آمنة بين المركبات.</div></div>
+        <div class="ruleLine"><div class="ruleNo">2</div><div class="ruleText">عند دخول مواطن بشكل غير قانوني: يتم إبلاغ الأمن. وإذا أحدث فوضى يحق سجنه بتهمة عدم الانصياع.</div></div>
+        <div class="ruleLine"><div class="ruleNo">3</div><div class="ruleText">في حال التصادم: يحق للأمن مخالفتك وإرجاعك لآخر الصف حسب تقديره، مع ترك مسافة لا تقل عن 5 أمتار.</div></div>
+        <div class="ruleLine"><div class="ruleNo">4</div><div class="ruleText">الدخول بعكس السير من بوابة الخروج: يحق للأمن إطلاق النار على الكفرات واتخاذ الإجراءات.</div></div>
+        <div class="ruleLine"><div class="ruleNo">5</div><div class="ruleText">لا يحق لك إدخال راكب معك؛ لكل شخص مركبته أو مركبة مستأجرة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">6</div><div class="ruleText">تنفيذ أوامر الأمن إلزامي، ويُمنع الجدال. المخالفة قد تؤدي للسجن.</div></div>
+        <div class="ruleLine"><div class="ruleNo">7</div><div class="ruleText">الالتزام بقوانين الميناء والتهريب لتجنب المحاسبة.</div></div>
+        <div class="ruleLine"><div class="ruleNo">8</div><div class="ruleText">سيتم تشديد العقوبات على المخالفين والمتهاونين.</div></div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="footer">© ATH</div>
+</div>
+
+<script>
+  function scrollToRules(){
+    document.getElementById('rules').scrollIntoView({behavior:'smooth'});
+  }
+
+  function agree(){
+    const c = document.getElementById('agree');
+    const m = document.getElementById('agreeMsg');
+    if(!c.checked){
+      m.textContent = 'يرجى تحديد الموافقة أولاً.';
+      return;
+    }
+    m.textContent = 'تم تسجيل موافقتك ✅ يمكنك الآن الدخول للسيرفر.';
+  }
+
+  // Tabs system
+  const tabs = document.querySelectorAll('#tabs .tab');
+  const sections = document.querySelectorAll('.rules-section');
+
+  function showSection(id){
+    sections.forEach(s => s.style.display = 'none');
+    const target = document.getElementById(id);
+    if(target) target.style.display = 'block';
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      showSection(tab.getAttribute('data-target'));
+      document.getElementById('search').value = '';
+      clearSearch();
+      document.getElementById('rules').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // Show all
+  document.getElementById('showAllBtn').addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.style.display = 'block');
+    document.getElementById('search').value = '';
+    clearSearch();
+    document.getElementById('rules').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  // Search filter (داخل المعروض فقط)
+  const searchInput = document.getElementById('search');
+
+  function clearSearch(){
+    document.querySelectorAll('.ruleLine').forEach(r => r.style.display = 'block');
+  }
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    const visibleSections = Array.from(sections).filter(s => s.style.display !== 'none');
+
+    visibleSections.forEach(sec => {
+      sec.querySelectorAll('.ruleLine').forEach(rule => {
+        const text = rule.innerText.toLowerCase();
+        rule.style.display = (q === '' || text.includes(q)) ? 'block' : 'none';
+      });
+    });
+  });
+
+  // Language (واجهة فقط)
+  const langBtn = document.getElementById('langBtn');
+  const i18n = {
+    ar: { official:"قوانين السيرفر الرسمية", editable:"هذه القوانين قابلة للتعديل في أي وقت" },
+    en: { official:"Official Server Rules", editable:"These rules may change at any time" }
+  };
+
+  function setLang(mode){
+    const html = document.documentElement;
+    if(mode === 'en'){
+      html.classList.add('en');
+      html.lang = 'en';
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const k = el.getAttribute('data-i18n');
+        el.textContent = i18n.en[k] || el.textContent;
+      });
+      langBtn.textContent = 'AR';
+    }else{
+      html.classList.remove('en');
+      html.lang = 'ar';
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const k = el.getAttribute('data-i18n');
+        el.textContent = i18n.ar[k] || el.textContent;
+      });
+      langBtn.textContent = 'EN';
+    }
+  }
+
+  let langMode = 'ar';
+  langBtn.addEventListener('click', ()=>{
+    langMode = (langMode === 'ar') ? 'en' : 'ar';
+    setLang(langMode);
+  });
+
+  // Default: show first section
+  showSection('rules-main');
+</script>
+</body>
+</html>

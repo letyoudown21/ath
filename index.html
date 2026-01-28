@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مقاطعة العاذرية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body style="margin:0; width:100vw; height:100vh; overflow:hidden; font-family:'Cairo',sans-serif; background:#000;">
+
+  <!-- الفيديو بالخلفية + Blur -->
+  <video id="bgVideo" autoplay muted loop playsinline preload="auto"
+    style="position:fixed; inset:0; width:100%; height:100%; object-fit:cover; z-index:-3; filter:blur(0px); transform:scale(1.02);">
+    <source src="intro.mp4" type="video/mp4">
+  </video>
+
+  <!-- تغميق فوق الفيديو -->
+  <div id="overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.62); z-index:-2;"></div>
+
+  <!-- طبقة انتقال سينمائي -->
+  <div id="cinema"
+       style="position:fixed; inset:0; background:#000; opacity:0; z-index:999; pointer-events:none;"></div>
+
+  <!-- صوت دخول -->
+  <audio id="enterSound" preload="auto">
+    <source src="click.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- صندوق الدخول -->
+  <div id="box"
+    style="
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(0.92);
+      opacity:0;
+      width:min(560px, 92vw);
+      padding:36px 28px;
+      text-align:center;
+      border-radius:22px;
+      background:rgba(15,15,25,0.88);
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:0 0 50px rgba(223, 221, 226, 0.45);
+    ">
+
+    <img src="logo.png.gif" alt="Logo"
+      style="width:110px; height:110px; border-radius:50%; margin-bottom:14px;
+             border:2px solid rgba(255,255,255,0.15);
+             box-shadow:0 0 22px rgba(34,211,238,0.35);">
+
+    <div id="title"
+      style="color:#fff; font-size:42px; font-weight:900; line-height:1.1;
+             text-shadow:0 0 18px rgba(124,58,237,0.6);">
+       مقاطعة العاذرية
+    </div>
+
+    <div id="sub"
+      style="margin-top:10px; color:rgba(255,255,255,0.75); font-size:18px;">
+      مرحباً بك في الموقع الرسمي
+    </div>
+
+    <!-- زر الدخول (بدون href عشان نعمل انتقال قبل التحويل) -->
+    <button id="enterBtn"
+      style="
+        margin-top:22px;
+        padding:14px 44px;
+        border-radius:14px;
+        border:0;
+        cursor:pointer;
+        font-weight:900;
+        font-size:20px;
+        color:#020617;
+        background:linear-gradient(90deg,#7c3aed,#22d3ee);
+        box-shadow:0 0 26px rgba(124,58,237,0.55);
+      "
+      onmouseenter="this.style.transform='scale(1.06)'; this.style.boxShadow='0 0 40px rgba(34,211,238,0.9)';"
+      onmouseleave="this.style.transform='scale(1)'; this.style.boxShadow='0 0 26px rgba(124,58,237,0.55)';"
+    >
+       دخول الموقع
+    </button>
+
+    <!-- اختيار اللغة -->
+    <div style="margin-top:22px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+      <button onclick="setLang('ar')"
+        style="cursor:pointer; padding:9px 18px; border-radius:12px;
+               background:rgba(255,255,255,0.08);
+               border:1px solid rgba(255,255,255,0.18);
+               color:#fff; font-weight:800;">
+        العربية
+      </button>
+
+      <button onclick="setLang('en')"
+        style="cursor:pointer; padding:9px 18px; border-radius:12px;
+               background:rgba(255,255,255,0.08);
+               border:1px solid rgba(255,255,255,0.18);
+               color:#fff; font-weight:800;">
+        English
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    // ====== مؤثر ظهور + Blur تدريجي للفيديو ======
+    window.addEventListener('load', () => {
+      const box = document.getElementById('box');
+      const vid = document.getElementById('bgVideo');
+
+      let o = 0, s = 0.92;
+      let blur = 10; // يبدأ Blur قوي ثم يقل
+
+      const t = setInterval(() => {
+        o += 0.05;
+        s += 0.01;
+        blur -= 0.6;
+
+        box.style.opacity = o.toFixed(2);
+        box.style.transform = `translate(-50%,-50%) scale(${s.toFixed(2)})`;
+
+        if (blur < 0) blur = 0;
+        vid.style.filter = `blur(${blur.toFixed(1)}px)`;
+
+        if (o >= 1) clearInterval(t);
+      }, 18);
+    });
+
+    // ====== تغيير لغة ======
+    function setLang(lang){
+      const title = document.getElementById('title');
+      const sub = document.getElementById('sub');
+      const btn = document.getElementById('enterBtn');
+
+      if(lang === 'ar'){
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+        title.textContent = ' مقاطعة العاذرية';
+        sub.textContent = 'مرحباً بك في الموقع الرسمي';
+        btn.textContent = ' دخول الموقع';
+      } else {
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+        title.textContent = ' Aladhriya Province';
+        sub.textContent = 'Welcome to the official website';
+        btn.textContent = ' Enter Website';
+      }
+    }
+
+    // ====== انتقال سينمائي + صوت + تحويل ======
+    const enterBtn = document.getElementById('enterBtn');
+    enterBtn.addEventListener('click', () => {
+
+      // شغل الصوت (ممكن يحتاج تفاعل المستخدم وهذا تفاعل)
+      const sound = document.getElementById('enterSound');
+      try { sound.currentTime = 0; sound.play(); } catch(e){}
+
+      // تأثير سينمائي
+      const cinema = document.getElementById('cinema');
+      const box = document.getElementById('box');
+      const vid = document.getElementById('bgVideo');
+
+      let op = 0;
+      let zoom = 1;
+      let blur = 0;
+
+      const anim = setInterval(() => {
+        op += 0.06;
+        zoom += 0.02;
+        blur += 0.8;
+
+        cinema.style.opacity = op.toFixed(2);
+        box.style.transform = `translate(-50%,-50%) scale(${zoom.toFixed(2)})`;
+        box.style.opacity = (1 - op).toFixed(2);
+        vid.style.filter = `blur(${blur.toFixed(1)}px)`;
+
+        if (op >= 1) {
+          clearInterval(anim);
+          // غير الرابط هنا لو تبي sectors.html
+          window.location.href = "rules.html";
+        }
+      }, 18);
+    });
+  </script>
+<!-- طبقة الانتقالات -->
+<div id="pageTrans" style="
+  position:fixed; inset:0;
+  background:#000;
+  opacity:0;
+  pointer-events:none;
+  z-index:99999;
+"></div>
+
+
+</body>
+</html>
+
